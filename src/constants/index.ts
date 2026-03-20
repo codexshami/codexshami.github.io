@@ -47,6 +47,7 @@ export const navLinks: TNavLink[] = [
     id: "contact",
     title: "Contact",
   },
+  
 ];
 
 const services: TService[] = [
