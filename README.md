@@ -8,6 +8,7 @@ Building intelligent systems, data-driven solutions, and impactful AI projects.
 ##  Live Website
 
 🔗 https://codexshami.github.io/
+🔗 https://codexshami.github.io/portfolio/
 
 ---
 
