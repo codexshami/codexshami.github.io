@@ -10,17 +10,13 @@
         content="Data Analyst, ML Engineer, Machine Learning, Python, Power BI, Data Science, Portfolio">
     <meta name="author" content="Mohd Shami">
     <title>Mohd Shami | Data Analyst & ML Engineer</title>
-    <link rel="icon" type="image/png" href="img/favicon.png">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <style>
-        /* Fallback for Georgia if needed, though it's a standard system font */
-        @font-face {
-            font-family: 'Georgia';
-            src: local('Georgia');
-        }
-    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -37,7 +33,18 @@
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="loading-text">MS</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-percentage">0%</p>
+        </div>
+    </div>
 
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress"></div>
@@ -60,7 +67,7 @@
                 <li class="nav-item"><a href="#certifications" class="nav-link">Certifications</a></li>
                 <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
                 <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
-                <!-- <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li> -->
+                <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li>
                 <li class="nav-item"><a href="https://codewithshami.blogspot.com" target="_blank"
                         class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
@@ -989,55 +996,51 @@
             <div class="blogs-grid">
                 <article class="blog-card" data-aos="fade-up">
                     <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Sorting Algorithms">
-                        <span class="blog-category">Python</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> March 2025</span>
-                            <span><i class="far fa-clock"></i> 8 min read</span>
-                        </div>
-                        <h3>Classic Sorting & Searching Algorithms in Python</h3>
-                        <p>A deep dive into essential algorithms like Bubble Sort, Quick Sort, and Binary Search with Python implementations...</p>
-                        <a href="https://codewithshami.blogspot.com/2025/03/classic-sorting-searching-algorithms-in.html" target="_blank" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA==" alt="NumPy Matrix Operations">
-                        <span class="blog-category">NumPy</span>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> March 2025</span>
-                            <span><i class="far fa-clock"></i> 6 min read</span>
-                        </div>
-                        <h3>10 Powerful Matrix Operations in NumPy</h3>
-                        <p>Mastering linear algebra and matrix manipulations using the powerful NumPy library with practical examples...</p>
-                        <a href="https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" target="_blank" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </article>
-                <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fake Internship Detector">
+                        <img src="img/blog1.jpg" alt="Machine Learning Blog">
                         <span class="blog-category">Machine Learning</span>
                     </div>
                     <div class="blog-content">
                         <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> March 2025</span>
-                            <span><i class="far fa-clock"></i> 10 min read</span>
+                            <span><i class="far fa-calendar"></i> March 15, 2026</span>
+                            <span><i class="far fa-clock"></i> 5 min read</span>
                         </div>
-                        <h3>Building a Fake Internship Detector</h3>
-                        <p>My journey of building an ML-powered detector to identify fraudulent internship postings using Streamlit and Scikit-learn...</p>
-                        <a href="https://codewithshami.blogspot.com/2025/03/building-fake-internship-detector-my.html" target="_blank" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                        <h3>Advanced Feature Engineering Techniques for ML Models</h3>
+                        <p>Exploring cutting-edge feature engineering methods that improved our model accuracy by 15%...
+                        </p>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </article>
-            </div>
-            <div class="view-all-blogs" data-aos="fade-up">
-                <a href="https://codewithshami.blogspot.com/" target="_blank" class="btn btn-outline">
-                    <span>Explore All Posts</span>
-                    <i class="fas fa-external-link-alt"></i>
-                </a>
+                <article class="blog-card" data-aos="fade-up">
+                    <div class="blog-image">
+                        <img src="img/blog2.jpg" alt="Data Analytics Blog">
+                        <span class="blog-category">Data Analytics</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> March 10, 2026</span>
+                            <span><i class="far fa-clock"></i> 7 min read</span>
+                        </div>
+                        <h3>Building Interactive Dashboards with Power BI</h3>
+                        <p>A comprehensive guide to creating stunning and actionable business intelligence dashboards...
+                        </p>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card" data-aos="fade-up">
+                    <div class="blog-image">
+                        <img src="img/blog3.jpg" alt="Python Blog">
+                        <span class="blog-category">Python</span>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> March 5, 2026</span>
+                            <span><i class="far fa-clock"></i> 6 min read</span>
+                        </div>
+                        <h3>Optimizing Python Code for Large-Scale Data Processing</h3>
+                        <p>Performance optimization strategies for handling big data with Python and Pandas...</p>
+                        <a href="#" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -1071,7 +1074,7 @@
                             </div>
                             <div>
                                 <h4>Phone</h4>
-                                <a href="tel:+9189XXXXXXXX">+91 89XXXXXXXX</a>
+                                <a href="tel:+918923591576">+91 89235 91576</a>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -1107,19 +1110,19 @@
                 <div class="contact-form-wrapper" data-aos="fade-left">
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder=" " required>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
                             <label for="name">Full Name</label>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder=" " required>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
                             <label for="email">Email Address</label>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder=" " required>
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
                             <label for="subject">Subject</label>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder=" "
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message"
                                 required></textarea>
                             <label for="message">Message</label>
                         </div>
@@ -1172,7 +1175,7 @@
                                 class="fab fa-kaggle"></i></a>
                         <a href="https://x.com/Codexshami" target="_blank" title="X"><i
                                 class="fab fa-x-twitter"></i></a>
-                        <a href="https://huggingface.co/codexshami" target="_blank" title="HuggingFace"><i
+                        <a href="https://huggingface.co/mohdshami" target="_blank" title="HuggingFace"><i
                                 class="fas fa-face-smile"></i></a>
                         <a href="https://instagram.com/shamisheiikh" target="_blank" title="Instagram"><i
                                 class="fab fa-instagram"></i></a>
