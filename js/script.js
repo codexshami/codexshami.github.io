@@ -57,6 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
     body.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
 
+    // Hide theme toggle on Android system
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+        themeToggle.style.display = 'none';
+        // Force dark theme on Android if desired, or just keep the saved one
+        body.setAttribute('data-theme', 'dark');
+    }
+
     themeToggle.addEventListener('click', () => {
         const currentTheme = body.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
