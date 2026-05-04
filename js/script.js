@@ -128,6 +128,15 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.classList.toggle('active');
     });
 
+    // Close menu when a link is clicked (Mobile)
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+
     // 6. Typing Animation
     const typingText = document.querySelector('.typing-text');
     const roles = ["Data Analyst", "ML Engineer", "Python Developer", "Tech Enthusiast"];
