@@ -6,9 +6,10 @@
 
 :root {
     /* Color Palette - Navy Blue, White, Black */
-    --primary-color: #001f3f; /* Deep Navy */
-    --secondary-color: #0074D9; /* Vibrant Navy/Blue */
-    --accent-color: #ffffff; /* Pure White */
+    --primary-color: #002d5a; /* Slightly brighter Navy */
+    --secondary-color: #0088ff; /* Brighter Blue for better contrast */
+    --accent-color: #ffffff;
+
     --bg-dark: #0a0a0a; /* True Black/Dark Gray */
     --bg-light: #f8f9fa;
     --text-dark: #001f3f;
@@ -600,8 +601,9 @@ ul {
     border-radius: 50px;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
-    color: var(--accent-color);
+    color: var(--text-light);
 }
+
 
 .hero-title {
     font-size: 4rem;
@@ -803,7 +805,9 @@ section {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: var(--bg-dark);
 }
+
 
 .about-image img {
     width: 100%;
@@ -1936,10 +1940,14 @@ section {
         font-size: 1.2rem;
     }
     
-    /* Hamburger Animation */
+    .hamburger.active span {
+        background: var(--text-light);
+    }
+    
     .hamburger.active span:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
     }
+
     
     .hamburger.active span:nth-child(2) {
         opacity: 0;
