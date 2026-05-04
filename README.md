@@ -1,4 +1,4 @@
-# 🚀 Mohd Shami | Data Analyst & ML Engineer Portfolio
+#  Mohd Shami | Data Analyst & ML Engineer Portfolio
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/codexshami)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/codexshami)
@@ -9,7 +9,7 @@ Welcome to my professional portfolio! I am a **Data Analyst & ML Engineer** spec
 
 ---
 
-## ✨ Features
+##  Features
 
 - **Premium Glassmorphic Design**: A modern, high-tech aesthetic with translucent elements.
 - **Dynamic Background**: Interactive particle system powered by `particles.js`.
@@ -23,7 +23,7 @@ Welcome to my professional portfolio! I am a **Data Analyst & ML Engineer** spec
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### **Frontend & UI**
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
@@ -48,20 +48,20 @@ Welcome to my professional portfolio! I am a **Data Analyst & ML Engineer** spec
 
 ---
 
-## 📂 Project Highlights
+##  Project Highlights
 
-### 🏥 [Revive - ML Disease Prediction](https://github.com/codexshami/Revive)
+###  [Revive - ML Disease Prediction](https://github.com/codexshami/Revive)
 ML-based disease prediction web application with improved diagnostic accuracy from 72% to 85% via advanced feature engineering and hyperparameter tuning.
 
-### 📧 [HamOrSpam Classifier](https://github.com/codexshami/HamOrSpam-Classifier)
+###  [HamOrSpam Classifier](https://github.com/codexshami/HamOrSpam-Classifier)
 Advanced email spam classifier using TF-IDF and Logistic Regression with SMOTE balancing, achieving >98% accuracy with robust recall.
 
-### 🚜 [FarmAIQ - Smart Agriculture](https://github.com/codexshami/FarmAIQ)
+###  [FarmAIQ - Smart Agriculture](https://github.com/codexshami/FarmAIQ)
 Smart agriculture recommendation system with crop recommendation and disease detection pipelines using Random Forest and CNNs.
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### **Prerequisites**
 - A modern web browser.
@@ -80,7 +80,7 @@ Smart agriculture recommendation system with crop recommendation and disease det
 
 ---
 
-## 📂 Directory Structure
+##  Directory Structure
 
 ```
 mohdshami_portfolio/
@@ -94,7 +94,7 @@ mohdshami_portfolio/
 
 ---
 
-## 🤝 Connect With Me
+##  Connect With Me
 
 - **Email**: [codexshami@gmail.com](mailto:codexshami@gmail.com)
 - **LinkedIn**: [Mohd Shami](https://linkedin.com/in/codexshami)
@@ -103,7 +103,7 @@ mohdshami_portfolio/
 
 ---
 
-## 📜 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
