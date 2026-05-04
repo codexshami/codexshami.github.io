@@ -26,7 +26,14 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        // High-priority Android detection
+        if (/Android/i.test(navigator.userAgent)) {
+            document.documentElement.className += ' is-android';
+        }
+    </script>
 </head>
+
 
 <body>
     <!-- Custom Cursor -->
