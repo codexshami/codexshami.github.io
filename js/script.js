@@ -15,37 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Custom Cursor
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
-    const interactiveElements = document.querySelectorAll('a, button, .nav-toggle, .stat-item, .skill-card, .project-card, .blog-card, .contact-item');
-
+    
     document.addEventListener('mousemove', (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
-        
-        requestAnimationFrame(() => {
-            cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-            follower.style.transform = `translate3d(${x - 17.5}px, ${y - 17.5}px, 0)`;
-        });
-    });
-
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hovered');
-            follower.classList.add('hovered');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hovered');
-            follower.classList.remove('hovered');
-        });
-    });
-
-    // Handle cursor visibility
-    document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-        follower.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-        cursor.style.opacity = '1';
-        follower.style.opacity = '1';
+        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        follower.style.transform = `translate3d(${e.clientX - 15}px, ${e.clientY - 15}px, 0)`;
     });
 
     // 3. Theme Toggle
@@ -56,12 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     body.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
-
-    // Force dark theme on Android if detected via class in head
-    if (document.documentElement.classList.contains('is-android')) {
-        body.setAttribute('data-theme', 'dark');
-    }
-
 
     themeToggle.addEventListener('click', () => {
         const currentTheme = body.getAttribute('data-theme');
@@ -132,15 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-    });
-
-    // Close menu when a link is clicked (Mobile)
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-        });
     });
 
     // 6. Typing Animation
