@@ -9,7 +9,7 @@
     <meta name="keywords"
         content="Data Analyst, ML Engineer, Machine Learning, Python, Power BI, Data Science, Portfolio">
     <meta name="author" content="Mohd Shami">
-    <title>Mohd Shami - Data Analyst | ML Engineer</title>
+    <title>Mohd Shami | Data Analyst & ML Engineer</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,10 +42,10 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="logo">
+            <a href="#home" class="logo">
                 <span class="logo-text">MOHD<span class="logo-highlight">SHAMI</span></span>
-            </div>
-            <ul class="nav-menu">
+            </a>
+            <ul class="nav-menu" id="navMenu">
                 <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
                 <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
@@ -55,19 +55,23 @@
                 <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
                 <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
                 <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                <li class="nav-item"><a href="https://codewithshami.blogspot.com" target="_blank"
-                        class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="#blogs" class="nav-link">Blogs</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item mobile-cta"><a href="#contact" class="btn btn-primary nav-mobile-btn">Hire Me <i class="fas fa-arrow-right"></i></a></li>
             </ul>
             <div class="nav-actions">
-
-                <div class="hamburger" id="hamburger">
+                <a href="#contact" class="nav-hire-btn">
+                    <span>Hire Me</span>
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+                <div class="hamburger" id="hamburger" aria-label="Toggle navigation menu" role="button" tabindex="0">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
             </div>
         </div>
+        <div class="nav-overlay" id="navOverlay"></div>
     </nav>
 
     <!-- Hero Section -->
@@ -114,11 +118,11 @@
                     </a>
                 </div>
                 <div class="hero-social">
-                    <a href="https://linkedin.com/in/mohdshamii" target="_blank" class="social-icon"
+                    <a href="https://linkedin.com/in/codexshami" target="_blank" class="social-icon"
                         data-tooltip="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://github.com/mohdshamii" target="_blank" class="social-icon" data-tooltip="GitHub">
+                    <a href="https://github.com/codexshami" target="_blank" class="social-icon" data-tooltip="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
                     <a href="https://kaggle.com/mohdshami" target="_blank" class="social-icon" data-tooltip="Kaggle">
@@ -131,11 +135,11 @@
                     <a href="https://x.com/Codexshami" target="_blank" class="social-icon" data-tooltip="X (Twitter)">
                         <i class="fab fa-x-twitter"></i>
                     </a>
-                    <a href="https://huggingface.co/mohdshami" target="_blank" class="social-icon"
+                    <a href="https://huggingface.co/codexshami" target="_blank" class="social-icon"
                         data-tooltip="HuggingFace">
                         <i class="fas fa-face-smile"></i>
                     </a>
-                    <a href="https://instagram.com/shamisheiikh" target="_blank" class="social-icon"
+                    <a href="https://instagram.com/codexshami" target="_blank" class="social-icon"
                         data-tooltip="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
@@ -520,7 +524,7 @@
                         <div class="project-header">
                             <h3>Revive - ML Disease Prediction</h3>
                             <div class="project-links">
-                                <a href="https://github.com/mohdshamii/Revive" target="_blank" class="project-link">
+                                <a href="https://github.com/codexshami/Revive" target="_blank" class="project-link">
                                     <i class="fab fa-github"></i>
                                 </a>
                                 <a href="#" class="project-link">
@@ -556,7 +560,7 @@
                         <div class="project-header">
                             <h3>HamOrSpam Classifier</h3>
                             <div class="project-links">
-                                <a href="https://github.com/mohdshamii/HamOrSpam-Classifier" target="_blank"
+                                <a href="https://github.com/codexshami/HamOrSpam-Classifier" target="_blank"
                                     class="project-link">
                                     <i class="fab fa-github"></i>
                                 </a>
@@ -589,7 +593,7 @@
                         <div class="project-header">
                             <h3>FarmAIQ - Smart Agriculture</h3>
                             <div class="project-links">
-                                <a href="https://github.com/mohdshamii/FarmAIQ" target="_blank" class="project-link">
+                                <a href="https://github.com/codexshami/FarmAIQ" target="_blank" class="project-link">
                                     <i class="fab fa-github"></i>
                                 </a>
                             </div>
@@ -658,7 +662,7 @@
                         <p>Foundational concepts of data analysis and business intelligence.</p>
                         <div class="cert-footer">
                             <span class="cert-date">2026</span>
-                            <a href="https://linkedin.com/in/mohdshamii" target="_blank" class="cert-verify">Verify <i
+                            <a href="https://linkedin.com/in/codexshami" target="_blank" class="cert-verify">Verify <i
                                     class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
@@ -675,7 +679,7 @@
                         <p>End-to-end ML pipeline development and model deployment.</p>
                         <div class="cert-footer">
                             <span class="cert-date">2025</span>
-                            <a href="https://linkedin.com/in/mohdshamii" target="_blank" class="cert-verify">Verify <i
+                            <a href="https://linkedin.com/in/codexshami" target="_blank" class="cert-verify">Verify <i
                                     class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
@@ -692,7 +696,7 @@
                         <p>Neural networks, CNNs, and deep learning architectures with Python.</p>
                         <div class="cert-footer">
                             <span class="cert-date">2025</span>
-                            <a href="https://linkedin.com/in/mohdshamii" target="_blank" class="cert-verify">Verify <i
+                            <a href="https://linkedin.com/in/codexshami" target="_blank" class="cert-verify">Verify <i
                                     class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
@@ -709,7 +713,7 @@
                         <p>Algorithmic efficiency and advanced data structures mastery.</p>
                         <div class="cert-footer">
                             <span class="cert-date">2025</span>
-                            <a href="https://www.hackerrank.com/mohdshamii" target="_blank" class="cert-verify">Verify
+                            <a href="https://www.hackerrank.com/codexshami" target="_blank" class="cert-verify">Verify
                                 <i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
@@ -726,7 +730,7 @@
                         <p>Core Python programming and functional implementation.</p>
                         <div class="cert-footer">
                             <span class="cert-date">2025</span>
-                            <a href="https://www.hackerrank.com/mohdshamii" target="_blank" class="cert-verify">Verify
+                            <a href="https://www.hackerrank.com/codexshami" target="_blank" class="cert-verify">Verify
                                 <i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
@@ -996,7 +1000,7 @@
                 </article>
                 <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="NumPy Matrix Operations">
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e90526354c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="NumPy Matrix Operations">
                         <span class="blog-category">NumPy</span>
                     </div>
                     <div class="blog-content">
@@ -1063,7 +1067,7 @@
                             </div>
                             <div>
                                 <h4>Phone</h4>
-                                <a href="tel:+9189XXXXXXXX">+91 89XXXXXXXX</a>
+                                <a href="tel:+918923591576">+91 89235 91576</a>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -1081,8 +1085,8 @@
                             </div>
                             <div>
                                 <h4>LinkedIn</h4>
-                                <a href="https://linkedin.com/in/mohdshamii"
-                                    target="_blank">linkedin.com/in/mohdshamii</a>
+                                <a href="https://linkedin.com/in/codexshami"
+                                    target="_blank">linkedin.com/in/codexshami</a>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -1091,7 +1095,7 @@
                             </div>
                             <div>
                                 <h4>GitHub</h4>
-                                <a href="https://github.com/mohdshamii" target="_blank">github.com/mohdshamii</a>
+                                <a href="https://github.com/codexshami" target="_blank">github.com/codexshami</a>
                             </div>
                         </div>
                     </div>
@@ -1158,9 +1162,9 @@
                     <p>Data Analyst & ML Engineer passionate about transforming data into insights and building
                         intelligent solutions.</p>
                     <div class="footer-social">
-                        <a href="https://linkedin.com/in/mohdshamii" target="_blank" title="LinkedIn"><i
+                        <a href="https://linkedin.com/in/codexshami" target="_blank" title="LinkedIn"><i
                                 class="fab fa-linkedin-in"></i></a>
-                        <a href="https://github.com/mohdshamii" target="_blank" title="GitHub"><i
+                        <a href="https://github.com/codexshami" target="_blank" title="GitHub"><i
                                 class="fab fa-github"></i></a>
                         <a href="https://kaggle.com/mohdshami" target="_blank" title="Kaggle"><i
                                 class="fab fa-kaggle"></i></a>
