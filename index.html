@@ -9,7 +9,7 @@
     <meta name="keywords"
         content="Data Analyst, ML Engineer, Machine Learning, Python, Power BI, Data Science, Portfolio">
     <meta name="author" content="Mohd Shami">
-    <title>Mohd Shami | AI/ML Engineer</title>
+    <title>Mohd Shami | Data Analyst & ML Engineer</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,11 +27,28 @@
 </head>
 
 <body>
+    <!-- Command Palette Overlay Modal -->
+    <div class="cmd-palette-overlay" id="cmdPaletteOverlay">
+        <div class="cmd-palette-modal">
+            <div class="cmd-palette-header">
+                <i class="fas fa-search cmd-icon"></i>
+                <input type="text" id="cmdInput" placeholder="Search sections, projects, skills, certs (e.g. XGBoost, SQL, Revive)..." autocomplete="off">
+                <span class="cmd-esc-badge">ESC</span>
+            </div>
+            <div class="cmd-palette-body" id="cmdPaletteResults">
+                <!-- Dynamic Search Results inserted via JS -->
+            </div>
+            <div class="cmd-palette-footer">
+                <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+                <span><kbd>↵</kbd> Select</span>
+                <span><kbd>ESC</kbd> Close</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
-
-
 
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress"></div>
@@ -51,6 +68,8 @@
                 <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
                 <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
                 <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#playground" class="nav-link">AI Lab</a></li>
+                <li class="nav-item"><a href="#code-explorer" class="nav-link">Code</a></li>
                 <li class="nav-item"><a href="#certifications" class="nav-link">Certifications</a></li>
                 <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
                 <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
@@ -60,6 +79,16 @@
                 <li class="nav-item mobile-cta"><a href="#contact" class="btn btn-primary nav-mobile-btn">Hire Me <i class="fas fa-arrow-right"></i></a></li>
             </ul>
             <div class="nav-actions">
+                <button class="nav-icon-btn cmd-palette-trigger" id="cmdTrigger" title="Command Palette (Ctrl+K)">
+                    <i class="fas fa-search"></i>
+                    <span class="kbd-badge">Ctrl K</span>
+                </button>
+                <button class="nav-icon-btn theme-toggle-btn" id="themeToggleBtn" title="Switch Theme (Emerald / Neon / Gold)">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button class="nav-icon-btn audio-toggle-btn" id="audioToggleBtn" title="Toggle Sound Effects">
+                    <i class="fas fa-volume-up"></i>
+                </button>
                 <a href="#contact" class="nav-hire-btn">
                     <span>Hire Me</span>
                     <i class="fas fa-paper-plane"></i>
@@ -104,17 +133,19 @@
                     analytics, and cutting-edge AI applications.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">
+                    <a href="#playground" class="btn btn-primary">
+                        <span><i class="fas fa-flask"></i> Try AI Lab</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
                         <span>Hire Me</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#resume" class="btn btn-secondary">
-                        <span>Download Resume</span>
+                    <button class="btn btn-outline" id="openScheduleBtn">
+                        <span><i class="fas fa-calendar-alt"></i> Book Call</span>
+                    </button>
+                    <a href="#resume" class="btn btn-outline">
+                        <span>Resume</span>
                         <i class="fas fa-download"></i>
-                    </a>
-                    <a href="#contact" class="btn btn-outline">
-                        <span>Contact Me</span>
-                        <i class="fas fa-envelope"></i>
                     </a>
                 </div>
                 <div class="hero-social">
@@ -617,9 +648,226 @@
         </div>
     </section>
 
+    <!-- Interactive AI & ML Playground Section -->
+    <section class="playground-section" id="playground">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Hands-On ML Experience</span>
+                <h2 class="section-title">Interactive <span class="gradient-text">AI Lab</span></h2>
+                <p class="section-subtitle">Test live interactive simulations of my Machine Learning models directly in your browser.</p>
+                <div class="section-divider"></div>
+            </div>
+
+            <!-- Playground Tabs -->
+            <div class="playground-nav" data-aos="fade-up">
+                <button class="pg-tab-btn active" data-tab="disease-tab">
+                    <i class="fas fa-heartbeat"></i> Revive (Disease Risk)
+                </button>
+                <button class="pg-tab-btn" data-tab="spam-tab">
+                    <i class="fas fa-shield-alt"></i> HamOrSpam (Classifier)
+                </button>
+                <button class="pg-tab-btn" data-tab="crop-tab">
+                    <i class="fas fa-seedling"></i> FarmAIQ (Crop Advisor)
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="playground-container" data-aos="fade-up">
+                <!-- Tab 1: Disease Risk Predictor -->
+                <div class="pg-tab-content active" id="disease-tab">
+                    <div class="pg-grid">
+                        <div class="pg-card inputs-card">
+                            <h3><i class="fas fa-sliders-h"></i> Input Patient Health Metrics</h3>
+                            <div class="pg-input-group">
+                                <label>Age: <span id="ageVal" class="val-highlight">28</span> years</label>
+                                <input type="range" id="pgAge" min="18" max="80" value="28">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>BMI: <span id="bmiVal" class="val-highlight">24.5</span> kg/m²</label>
+                                <input type="range" id="pgBmi" min="15" max="45" value="24.5" step="0.5">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Systolic Blood Pressure: <span id="bpVal" class="val-highlight">120</span> mmHg</label>
+                                <input type="range" id="pgBp" min="90" max="180" value="120">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Glucose Level: <span id="glucoseVal" class="val-highlight">95</span> mg/dL</label>
+                                <input type="range" id="pgGlucose" min="70" max="250" value="95">
+                            </div>
+                            <button class="btn btn-primary pg-run-btn" id="runDiseaseModel">
+                                <i class="fas fa-bolt"></i> Run XGBoost Inference
+                            </button>
+                        </div>
+                        <div class="pg-card results-card">
+                            <h3><i class="fas fa-chart-pie"></i> Diagnostic Risk Output</h3>
+                            <div class="result-gauge-wrapper">
+                                <div class="gauge-circle" id="diseaseGauge">
+                                    <span class="gauge-score" id="diseaseScore">18%</span>
+                                    <span class="gauge-label" id="diseaseStatus">Low Risk</span>
+                                </div>
+                            </div>
+                            <div class="metrics-breakdown">
+                                <div class="metric-row">
+                                    <span>Model Architecture</span>
+                                    <strong class="text-emerald">XGBoost (85.4% Accuracy)</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>Primary Indicator</span>
+                                    <strong id="primaryFactor">Optimal Glucose & Blood Pressure</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>AI Diagnostic Recommendation</span>
+                                    <span id="diseaseRec" class="rec-text">Healthy parameters detected. Regular annual health checks advised.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Spam Classifier -->
+                <div class="pg-tab-content" id="spam-tab">
+                    <div class="pg-grid">
+                        <div class="pg-card inputs-card">
+                            <h3><i class="fas fa-envelope-open-text"></i> Message Content</h3>
+                            <div class="preset-pills">
+                                <span>Try Presets:</span>
+                                <button class="preset-btn" data-text="CONGRATS! You have won $1,000,000 cash prize! Claim immediately at http://win-free-money.com">Spam Preset</button>
+                                <button class="preset-btn" data-text="Hi Shami, please review the attached Python ETL pipeline script before our morning team meeting. Thanks!">Ham Preset</button>
+                            </div>
+                            <textarea id="spamInput" rows="4" placeholder="Type or paste any email message text here to test NLP classification...">Hi Shami, please review the attached Python ETL pipeline script before our morning team meeting. Thanks!</textarea>
+                            <button class="btn btn-primary pg-run-btn" id="runSpamModel">
+                                <i class="fas fa-bolt"></i> Classify Message (TF-IDF + Logistic Reg)
+                            </button>
+                        </div>
+                        <div class="pg-card results-card">
+                            <h3><i class="fas fa-robot"></i> Classification Result</h3>
+                            <div class="spam-result-box" id="spamResultBox">
+                                <div class="spam-badge ham" id="spamBadge">HAM (Legitimate Message)</div>
+                                <div class="prob-meter">
+                                    <div class="prob-bar" id="spamProbBar" style="width: 5%;"></div>
+                                </div>
+                                <div class="prob-labels">
+                                    <span>Spam Probability: <strong id="spamProbVal">5%</strong></span>
+                                    <span>Model Confidence: <strong id="spamConfVal">98.8%</strong></span>
+                                </div>
+                            </div>
+                            <div class="keywords-extracted">
+                                <h4>Extracted TF-IDF Keyword Features</h4>
+                                <div class="tag-cloud" id="spamTags">
+                                    <span class="tag">pipeline</span>
+                                    <span class="tag">review</span>
+                                    <span class="tag">python</span>
+                                    <span class="tag">meeting</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Smart Crop Recommender -->
+                <div class="pg-tab-content" id="crop-tab">
+                    <div class="pg-grid">
+                        <div class="pg-card inputs-card">
+                            <h3><i class="fas fa-mountain"></i> Soil & Climate Parameters</h3>
+                            <div class="pg-input-group">
+                                <label>Nitrogen (N): <span id="nVal" class="val-highlight">90</span> kg/ha</label>
+                                <input type="range" id="pgN" min="0" max="140" value="90">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Phosphorus (P): <span id="pVal" class="val-highlight">42</span> kg/ha</label>
+                                <input type="range" id="pgP" min="5" max="145" value="42">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Potassium (K): <span id="kVal" class="val-highlight">43</span> kg/ha</label>
+                                <input type="range" id="pgK" min="5" max="205" value="43">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Rainfall: <span id="rainVal" class="val-highlight">200</span> mm</label>
+                                <input type="range" id="pgRain" min="20" max="300" value="200">
+                            </div>
+                            <button class="btn btn-primary pg-run-btn" id="runCropModel">
+                                <i class="fas fa-bolt"></i> Predict Recommended Crop
+                            </button>
+                        </div>
+                        <div class="pg-card results-card">
+                            <h3><i class="fas fa-leaf"></i> Recommended Crop</h3>
+                            <div class="crop-recommendation-display">
+                                <div class="crop-icon-large" id="cropIcon"><i class="fas fa-seedling"></i></div>
+                                <h2 class="crop-name" id="cropName">Rice</h2>
+                                <p class="crop-desc" id="cropDesc">Optimal conditions detected for high-yield cereal crop cultivation.</p>
+                            </div>
+                            <div class="crop-suitability-stats">
+                                <div class="stat-pill">
+                                    <span>Soil NPK Match</span>
+                                    <strong id="soilMatch">96%</strong>
+                                </div>
+                                <div class="stat-pill">
+                                    <span>Rainfall Index</span>
+                                    <strong id="rainIndex">High</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code & ML Pipeline Explorer Section -->
+    <section class="code-explorer-section" id="code-explorer">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">Architecture & Engineering</span>
+                <h2 class="section-title">ML Pipeline & <span class="gradient-text">Code Explorer</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="code-window-wrapper" data-aos="fade-up">
+                <div class="code-window-header">
+                    <div class="window-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="code-tabs">
+                        <button class="code-tab active" data-snippet="xgboost">
+                            <i class="fab fa-python"></i> xgboost_disease_model.py
+                        </button>
+                        <button class="code-tab" data-snippet="tfidf">
+                            <i class="fab fa-python"></i> tfidf_spam_classifier.py
+                        </button>
+                        <button class="code-tab" data-snippet="etl">
+                            <i class="fab fa-python"></i> pandas_etl_pipeline.py
+                        </button>
+                    </div>
+                    <div class="code-actions">
+                        <button class="code-action-btn run-btn" id="runCodeBtn" title="Simulate Execution">
+                            <i class="fas fa-play"></i> Run Code
+                        </button>
+                        <button class="code-action-btn copy-btn" id="copyCodeBtn" title="Copy Snippet">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                </div>
+                <div class="code-window-body">
+                    <pre><code id="codeViewer"># Loading XGBoost Machine Learning Pipeline...</code></pre>
+                </div>
+                <div class="code-terminal-console" id="codeConsole">
+                    <div class="console-header">
+                        <span><i class="fas fa-terminal"></i> Terminal Execution Output</span>
+                        <button id="clearConsoleBtn"><i class="fas fa-trash-alt"></i> Clear Logs</button>
+                    </div>
+                    <div class="console-body" id="consoleOutput">
+                        <p class="console-line info">[SYSTEM] Environment initialized. Click "Run Code" to execute interactive python simulation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Project Modal -->
     <div class="modal" id="projectModal">
-        <div class="modal-content">
+        <div class="modal-content glass-modal">
             <span class="modal-close" onclick="closeProjectModal()">&times;</span>
             <div id="modalBody"></div>
         </div>
@@ -1147,6 +1395,61 @@
             </div>
         </div>
     </section>
+
+    <!-- Schedule Meeting Modal -->
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content glass-modal">
+            <span class="modal-close" onclick="closeModal('scheduleModal')">&times;</span>
+            <div class="modal-header-custom">
+                <div class="modal-icon-badge"><i class="fas fa-calendar-check"></i></div>
+                <h2>Schedule a <span class="gradient-text">1-on-1 Call</span></h2>
+                <p>Select a date and time slot to discuss ML solutions, data analytics, or job opportunities.</p>
+            </div>
+            <form id="scheduleForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="schedName" required placeholder="Your Full Name">
+                        <label for="schedName">Full Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="schedEmail" required placeholder="Your Email Address">
+                        <label for="schedEmail">Email Address</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="date" id="schedDate" required>
+                        <label for="schedDate">Preferred Date</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="schedTime" required class="custom-select">
+                            <option value="">Select Time Slot</option>
+                            <option value="10:00 AM IST">10:00 AM IST</option>
+                            <option value="02:00 PM IST">02:00 PM IST</option>
+                            <option value="06:00 PM IST">06:00 PM IST</option>
+                            <option value="09:00 PM IST">09:00 PM IST</option>
+                        </select>
+                        <label for="schedTime">Preferred Time</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="schedTopic" placeholder="e.g. Machine Learning Project / Consultation" required>
+                    <label for="schedTopic">Discussion Topic</label>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span><i class="fas fa-calendar-plus"></i> Confirm Booking</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Certificate Detail Modal -->
+    <div class="modal" id="certModal">
+        <div class="modal-content glass-modal">
+            <span class="modal-close" onclick="closeModal('certModal')">&times;</span>
+            <div id="certModalBody"></div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
