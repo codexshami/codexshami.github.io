@@ -97,9 +97,9 @@ mohdshami_portfolio/
 ##  Connect With Me
 
 - **Email**: [codexshami@gmail.com](mailto:codexshami@gmail.com)
-- **LinkedIn**: [Mohd Shami](https://linkedin.com/in/codexshami)
+- **LinkedIn**: [Mohd Shami](https://linkedin.com/in/mohdshamii)
 - **Kaggle**: [mohdshami](https://kaggle.com/mohdshami)
-- **Twitter**: [@Codexshami](https://x.com/Codexshami)
+- **Twitter**: [@Codexshami](https://x.com/mohdshamiii)
 
 ---
 
