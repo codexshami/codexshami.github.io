@@ -23,58 +23,113 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // 4. Navbar Scroll Effect
+    // 4. Navbar Scroll Effect & Scroll Spy
     const navbar = document.getElementById('navbar');
     const backToTop = document.getElementById('backToTop');
     const scrollProgress = document.querySelector('.scroll-progress');
+    const navOverlay = document.getElementById('navOverlay');
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
 
     window.addEventListener('scroll', () => {
         // Sticky Navbar
-        if (window.scrollY > 50) {
+        if (window.scrollY > 40) {
             navbar.classList.add('scrolled');
-            backToTop.classList.add('active');
+            if (backToTop) backToTop.classList.add('active');
         } else {
             navbar.classList.remove('scrolled');
-            backToTop.classList.remove('active');
+            if (backToTop) backToTop.classList.remove('active');
         }
 
-        // Scroll Progress
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        scrollProgress.style.width = scrolled + "%";
+        // Scroll Progress Indicator
+        if (scrollProgress) {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + "%";
+        }
 
         // Active Link Highlighting
         highlightNavLink();
     });
 
     function highlightNavLink() {
-        const sections = document.querySelectorAll('section');
+        const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
         
         let current = '';
+        const scrollPosition = window.scrollY + 120;
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 100) {
+            const sectionHeight = section.offsetHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 current = section.getAttribute('id');
             }
         });
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
+            const href = link.getAttribute('href');
+            if (href === `#${current}`) {
                 link.classList.add('active');
             }
         });
     }
 
-    // 5. Hamburger Menu
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+    // 5. Hamburger Menu & Mobile Drawer Controls
+    function toggleMobileMenu() {
+        const isOpen = navMenu.classList.contains('active');
+        if (isOpen) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
 
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
+    function openMobileMenu() {
+        navMenu.classList.add('active');
+        hamburger.classList.add('active');
+        if (navOverlay) navOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        hamburger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMobileMenu() {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+        if (navOverlay) navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMobileMenu);
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMobileMenu();
+            }
+        });
+    }
+
+    if (navOverlay) {
+        navOverlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Auto-close menu when tapping any nav link
+    const allNavLinks = document.querySelectorAll('.nav-link, .nav-mobile-btn');
+    allNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileMenu();
+        });
+    });
+
+    // Close on Escape key press
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
     });
 
     // 6. Typing Animation
@@ -85,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isDeleting = false;
 
     function type() {
+        if (!typingText) return;
         const currentRole = roles[roleIndex];
         
         if (isDeleting) {
@@ -195,32 +251,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 10. Testimonial Slider
+    // 10. Testimonial Slider & Dynamic Height Adjustment
     const testimonials = document.querySelectorAll('.testimonial-card');
+    const sliderContainer = document.querySelector('.testimonials-slider');
     const prevBtn = document.querySelector('.testimonial-prev');
     const nextBtn = document.querySelector('.testimonial-next');
     let testimonialIndex = 0;
 
-    function showTestimonial(index) {
-        testimonials.forEach(t => t.classList.remove('active'));
-        testimonials[index].classList.add('active');
+    function updateTestimonialHeight() {
+        if (!sliderContainer || testimonials.length === 0) return;
+        const activeCard = testimonials[testimonialIndex];
+        if (activeCard) {
+            sliderContainer.style.height = `${activeCard.offsetHeight}px`;
+        }
     }
 
-    nextBtn.addEventListener('click', () => {
-        testimonialIndex = (testimonialIndex + 1) % testimonials.length;
-        showTestimonial(testimonialIndex);
-    });
+    function showTestimonial(index) {
+        testimonials.forEach(t => t.classList.remove('active'));
+        if (testimonials[index]) {
+            testimonials[index].classList.add('active');
+            updateTestimonialHeight();
+        }
+    }
 
-    prevBtn.addEventListener('click', () => {
-        testimonialIndex = (testimonialIndex - 1 + testimonials.length) % testimonials.length;
-        showTestimonial(testimonialIndex);
-    });
+    if (nextBtn && prevBtn && testimonials.length > 0) {
+        nextBtn.addEventListener('click', () => {
+            testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+            showTestimonial(testimonialIndex);
+        });
 
-    // Auto Slide Testimonials
-    setInterval(() => {
-        testimonialIndex = (testimonialIndex + 1) % testimonials.length;
-        showTestimonial(testimonialIndex);
-    }, 5000);
+        prevBtn.addEventListener('click', () => {
+            testimonialIndex = (testimonialIndex - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(testimonialIndex);
+        });
+
+        // Auto Slide Testimonials
+        let testimonialInterval = setInterval(() => {
+            testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+            showTestimonial(testimonialIndex);
+        }, 6000);
+
+        // Pause auto slide on hover or touch
+        sliderContainer.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
+        sliderContainer.addEventListener('mouseleave', () => {
+            testimonialInterval = setInterval(() => {
+                testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+                showTestimonial(testimonialIndex);
+            }, 6000);
+        });
+
+        // Initial height set and resize listener
+        window.addEventListener('resize', updateTestimonialHeight);
+        setTimeout(updateTestimonialHeight, 300);
+    }
 
     // 11. Contact Form
     const contactForm = document.getElementById('contactForm');
@@ -243,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 // Success State
                 btn.innerHTML = '<span><i class="fas fa-check-circle"></i> Message Sent!</span>';
-                btn.style.background = 'linear-gradient(135deg, #00b894 0%, #00cec9 100%)';
+                btn.style.background = 'linear-gradient(135deg, #00643D 0%, #08BF7C 100%)';
                 
                 // Show floating notification (optional, but premium)
                 const notification = document.createElement('div');
@@ -276,18 +359,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.particlesJS) {
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#0074D9" },
+                "number": { "value": 75, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#08BF7C" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": false },
+                "opacity": { "value": 0.45, "random": false },
                 "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#0074D9", "opacity": 0.4, "width": 1 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#08BF7C", "opacity": 0.25, "width": 1 },
                 "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
             },
             "interactivity": {
                 "detect_on": "canvas",
                 "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } }
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.8 } }, "push": { "particles_nb": 4 } }
             },
             "retina_detect": true
         });
