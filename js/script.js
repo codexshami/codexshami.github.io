@@ -1,5 +1,5 @@
 /* 
-    Mohd Shami Portfolio - Main Script
+    Mohd Shami Portfolio - Main Script JS
     Handles: Animations, Interactions, Theme, Filtering, and more.
 */
 
