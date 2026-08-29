@@ -93,6 +93,9 @@ body {
     font-family: 'Georgia', serif;
     background-color: var(--bg-dark);
     color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 h1,
