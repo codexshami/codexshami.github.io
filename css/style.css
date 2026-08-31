@@ -8,23 +8,23 @@
     --primary-color: #08BF7C;       /* Primary Green */
     --secondary-color: #00643D;     /* Dark Green */
     --silver-color: #9FA9B2;        /* Silver Muted Grey */
-    --bg-dark: #070508;             /* Rich Obsidian Black */
-    --bg-card: rgba(14, 24, 20, 0.75); /* Dark Glassmorphism Card */
+    --bg-dark: #090d12;             /* Clean Dark Obsidian */
+    --bg-card: rgba(18, 26, 22, 0.9); /* Clean Dark Card */
     --accent-color: #C78F22;        /* Gold / Nugget */
     --highlight-color: #FFEC83;     /* Tranquil Yellow */
     --text-light: #F0F4F6;          /* High contrast bright silver/white */
     --text-muted: #9FA9B2;          /* Silver Grey muted text */
     --text-dark: #070508;           /* Pure Obsidian Dark */
-    --glass-bg: rgba(255, 255, 255, 0.04);
-    --glass-border: rgba(8, 191, 124, 0.2);
-    --glass-border-gold: rgba(199, 143, 34, 0.3);
-    --neon-glow: 0 4px 20px rgba(8, 191, 124, 0.35);
-    --gold-glow: 0 4px 20px rgba(199, 143, 34, 0.35);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(8, 191, 124, 0.25);
+    --glass-border-gold: rgba(199, 143, 34, 0.25);
+    --neon-glow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --gold-glow: 0 4px 12px rgba(0, 0, 0, 0.3);
     --grad-primary: linear-gradient(135deg, #00643D 0%, #08BF7C 100%);
     --grad-gold: linear-gradient(135deg, #C78F22 0%, #FFEC83 100%);
     --grad-text: linear-gradient(90deg, #08BF7C 0%, #FFEC83 50%, #C78F22 100%);
-    --transition-fast: 0.3s ease;
-    --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: 0.25s ease;
+    --transition-slow: 0.4s ease;
 }
 
 /* Theme 2: Cyber Neon */
@@ -32,18 +32,18 @@
     --primary-color: #00f2fe;
     --secondary-color: #7000ff;
     --silver-color: #a1a8c3;
-    --bg-dark: #050515;
-    --bg-card: rgba(15, 20, 45, 0.8);
+    --bg-dark: #070814;
+    --bg-card: rgba(18, 22, 42, 0.9);
     --accent-color: #f35588;
     --highlight-color: #00f2fe;
     --text-light: #f1f5f9;
     --text-muted: #94a3b8;
     --text-dark: #050515;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(0, 242, 254, 0.25);
-    --glass-border-gold: rgba(243, 85, 136, 0.3);
-    --neon-glow: 0 4px 25px rgba(0, 242, 254, 0.4);
-    --gold-glow: 0 4px 25px rgba(243, 85, 136, 0.4);
+    --glass-border-gold: rgba(243, 85, 136, 0.25);
+    --neon-glow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --gold-glow: 0 4px 12px rgba(0, 0, 0, 0.3);
     --grad-primary: linear-gradient(135deg, #7000ff 0%, #00f2fe 100%);
     --grad-gold: linear-gradient(135deg, #f35588 0%, #00f2fe 100%);
     --grad-text: linear-gradient(90deg, #00f2fe 0%, #f35588 50%, #7000ff 100%);
@@ -54,18 +54,18 @@
     --primary-color: #d4af37;
     --secondary-color: #aa7c11;
     --silver-color: #bfa888;
-    --bg-dark: #0a0907;
-    --bg-card: rgba(25, 22, 16, 0.8);
+    --bg-dark: #0c0b08;
+    --bg-card: rgba(26, 23, 17, 0.9);
     --accent-color: #ffd700;
     --highlight-color: #fff8dc;
     --text-light: #fefefa;
     --text-muted: #c5b39a;
     --text-dark: #0a0907;
-    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(212, 175, 55, 0.25);
-    --glass-border-gold: rgba(255, 215, 0, 0.3);
-    --neon-glow: 0 4px 20px rgba(212, 175, 55, 0.35);
-    --gold-glow: 0 4px 20px rgba(255, 215, 0, 0.35);
+    --glass-border-gold: rgba(255, 215, 0, 0.25);
+    --neon-glow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --gold-glow: 0 4px 12px rgba(0, 0, 0, 0.3);
     --grad-primary: linear-gradient(135deg, #aa7c11 0%, #d4af37 100%);
     --grad-gold: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
     --grad-text: linear-gradient(90deg, #ffd700 0%, #fff8dc 50%, #d4af37 100%);
@@ -343,42 +343,7 @@ ul {
     }
 }
 
-/* Custom Cursor */
-@media (pointer: fine) {
-    * {
-        cursor: none !important;
-    }
 
-    .cursor {
-        width: 10px;
-        height: 10px;
-        background: var(--secondary-color);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transition: transform 0.1s ease;
-    }
-
-    .cursor-follower {
-        width: 40px;
-        height: 40px;
-        border: 2px solid var(--secondary-color);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9998;
-        transition: transform 0.15s ease, opacity 0.3s ease;
-    }
-}
-
-@media (pointer: coarse) {
-
-    .cursor,
-    .cursor-follower {
-        display: none !important;
-    }
-}
 
 /* Blog Section Premium Styles */
 .blogs {
@@ -613,14 +578,7 @@ ul {
     padding-bottom: 50px;
 }
 
-#particles-js {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
+
 
 .hero-container {
     display: flex;
@@ -735,7 +693,7 @@ ul {
 .social-icon:hover {
     color: var(--accent-color);
     opacity: 1;
-    transform: scale(1.2) rotate(10deg);
+    transform: translateY(-3px);
 }
 
 .hero-image {
@@ -1574,7 +1532,7 @@ section {
 .cert-card-premium:hover .cert-icon-wrapper {
     background: var(--accent-color);
     color: var(--primary-color);
-    transform: rotateY(360deg);
+    transform: translateY(-3px);
 }
 
 .cert-content {
@@ -1763,7 +1721,7 @@ section {
 }
 
 .service-card:hover .service-icon {
-    transform: scale(1.2) rotate(10deg);
+    transform: translateY(-4px);
     color: var(--secondary-color);
 }
 
@@ -1842,7 +1800,7 @@ section {
 }
 
 .tech-box:hover {
-    transform: translateY(-10px) rotate(5deg);
+    transform: translateY(-6px);
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent-color);
     box-shadow: var(--neon-glow);
@@ -1956,17 +1914,7 @@ section {
     z-index: 1;
 }
 
-.client-glow {
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    background: var(--grad-primary);
-    border-radius: 50%;
-    filter: blur(10px);
-    opacity: 0.3;
-}
+
 
 .testimonial-info h4 {
     font-size: 1.3rem;
