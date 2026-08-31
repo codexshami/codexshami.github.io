@@ -163,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function highlightNavLink() {
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
+        const dockItems = document.querySelectorAll('.mobile-quick-dock .dock-item[href]');
         let current = '';
         const scrollPosition = window.scrollY + 120;
 
@@ -179,6 +180,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const href = link.getAttribute('href');
             if (href === `#${current}`) {
                 link.classList.add('active');
+            }
+        });
+
+        dockItems.forEach(item => {
+            item.classList.remove('active');
+            const href = item.getAttribute('href');
+            if (href === `#${current}`) {
+                item.classList.add('active');
             }
         });
     }
@@ -773,10 +782,14 @@ df_clean = clean_and_transform_pipeline('raw_business_data.csv')`
 
     // 13. Schedule Call Form
     const openScheduleBtn = document.getElementById('openScheduleBtn');
+    const mobileDockScheduleBtn = document.getElementById('mobileDockScheduleBtn');
     const scheduleForm = document.getElementById('scheduleForm');
 
     if (openScheduleBtn) {
         openScheduleBtn.addEventListener('click', () => openModal('scheduleModal'));
+    }
+    if (mobileDockScheduleBtn) {
+        mobileDockScheduleBtn.addEventListener('click', () => openModal('scheduleModal'));
     }
 
     if (scheduleForm) {
