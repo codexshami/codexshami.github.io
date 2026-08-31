@@ -123,15 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Custom Cursor
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
-    if (cursor && follower) {
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-            follower.style.transform = `translate3d(${e.clientX - 15}px, ${e.clientY - 15}px, 0)`;
-        });
-    }
+
 
     // 5. Navbar Scroll Effect & Scroll Spy
     const navbar = document.getElementById('navbar');
@@ -874,26 +866,6 @@ df_clean = clean_and_transform_pipeline('raw_business_data.csv')`
             document.body.style.overflow = 'auto';
         }
     });
-
-    // Particles.js Initialization
-    if (window.particlesJS) {
-        particlesJS('particles-js', {
-            "particles": {
-                "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#08BF7C" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.4, "random": false },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 140, "color": "#08BF7C", "opacity": 0.25, "width": 1 },
-                "move": { "enable": true, "speed": 1.8, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }
-            },
-            "retina_detect": true
-        });
-    }
 });
 
 // Rich Project Modal Launcher
