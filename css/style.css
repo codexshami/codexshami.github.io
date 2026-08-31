@@ -1,5 +1,5 @@
 /* 
-    Mohd Shami Portfolio - Premium CSS Style
+    Mohd Shami Portfolio - Premium CSS
     Theme: Emerald Green (#08BF7C), Dark Green (#00643D), Silver (#9FA9B2), Obsidian (#070508), Gold (#C78F22), Tranquil Yellow (#FFEC83)
     Styles: Luxury Dark Mode, Glassmorphism, Gradients, 3D Effects, Animations
 */
@@ -25,9 +25,6 @@
     --grad-text: linear-gradient(90deg, #08BF7C 0%, #FFEC83 50%, #C78F22 100%);
     --transition-fast: 0.3s ease;
     --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    color-scheme: dark;
-    --primary-color: #08BF7C;
-    --secondary-color: #00643D;
 }
 
 /* Theme 2: Cyber Neon */
@@ -89,7 +86,6 @@ html {
 }
 
 body {
-    color-scheme: dark;
     font-family: 'Georgia', serif;
     background-color: var(--bg-dark);
     color: var(--text-light);
@@ -126,19 +122,19 @@ h6 {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.2rem 0;
+    padding: 0.6rem 0;
     z-index: 1000;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(7, 5, 8, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .navbar.scrolled {
-    background: rgba(7, 5, 8, 0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 0.75rem 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid var(--glass-border);
+    background: rgba(7, 5, 8, 0.94);
+    padding: 0.4rem 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
 }
 
 .nav-container {
@@ -613,8 +609,8 @@ ul {
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding-top: 120px;
-    padding-bottom: 60px;
+    padding-top: 90px;
+    padding-bottom: 50px;
 }
 
 #particles-js {
@@ -749,40 +745,32 @@ ul {
 
 .image-wrapper {
     position: relative;
-    width: min(100%, 400px);
+    width: min(100%, 380px);
+    margin: 0 auto;
     aspect-ratio: 1;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    border-radius: 28px;
     overflow: hidden;
-    background: var(--grad-primary);
-    animation: morph 8s ease-in-out infinite;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), var(--neon-glow);
+    transition: transform 0.4s ease, border-color 0.4s ease;
 }
 
-@keyframes morph {
-    0% {
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
-
-    50% {
-        border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-    }
-
-    100% {
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    }
+.image-wrapper:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary-color);
 }
 
 .profile-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    mix-blend-mode: multiply;
-    filter: grayscale(100%) brightness(1.2);
-    transition: var(--transition-fast);
+    filter: brightness(1.1);
+    transition: transform 0.4s ease;
 }
 
 .image-wrapper:hover .profile-img {
-    filter: none;
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .tech-icons {
@@ -3038,4 +3026,246 @@ img, iframe, video {
     border-radius: 10px;
     color: var(--text-light);
     outline: none;
+}
+
+/* ==========================================================================
+   Mobile Ergonomics & Responsive Redesign Enhancements
+   ========================================================================== */
+
+/* Mobile Bottom Quick Action Dock */
+.mobile-quick-dock {
+    display: none;
+    position: fixed;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92%, 440px);
+    height: 62px;
+    background: rgba(7, 5, 8, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    z-index: 999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), var(--neon-glow);
+    padding: 0 8px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dock-item {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    min-width: 52px;
+    height: 48px;
+    border-radius: 20px;
+    transition: var(--transition-fast);
+}
+
+.dock-item i {
+    font-size: 1.1rem;
+    transition: var(--transition-fast);
+}
+
+.dock-item.active,
+.dock-item:hover {
+    color: var(--primary-color);
+    background: rgba(8, 191, 124, 0.15);
+}
+
+.dock-item.active i,
+.dock-item:hover i {
+    transform: translateY(-2px);
+}
+
+/* Responsive Touch Sliders & Minimum Tap Target Rules */
+.pg-input-group input[type="range"]::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: var(--neon-glow);
+}
+
+.pg-input-group input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: var(--neon-glow);
+}
+
+/* Media Queries for Mobile Comfort & Laptop Ergonomics */
+@media (max-width: 768px) {
+    .mobile-quick-dock {
+        display: flex;
+    }
+
+    body {
+        padding-bottom: 70px !important;
+    }
+
+    /* Navbar Mobile Tweaks */
+    .navbar {
+        padding: 0.8rem 0;
+    }
+
+    .nav-actions {
+        gap: 0.5rem;
+    }
+
+    .nav-hire-btn {
+        display: none; /* Accessible directly via mobile dock / hero */
+    }
+
+    .nav-icon-btn {
+        padding: 0.45rem 0.65rem;
+    }
+
+    .nav-icon-btn .kbd-badge {
+        display: none;
+    }
+
+    /* Hero Section Mobile Ergonomics */
+    .hero {
+        padding-top: 100px;
+        padding-bottom: 40px;
+        text-align: center;
+    }
+
+    .hero-container {
+        flex-direction: column-reverse;
+        gap: 2.5rem;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 7vw, 3rem);
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.2rem, 5vw, 1.6rem);
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .hero-buttons .btn {
+        width: calc(50% - 0.38rem);
+        padding: 0.85rem 1rem;
+        font-size: 0.82rem;
+        justify-content: center;
+    }
+
+    .hero-social {
+        justify-content: center;
+    }
+
+    .tech-icons {
+        display: none; /* Remove floating icons on mobile to prevent overflow */
+    }
+
+    /* Section Headers */
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
+    }
+
+    /* AI Lab Mobile Cards */
+    .pg-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .pg-card {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .pg-tab-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Code Explorer Window */
+    .code-window-wrapper {
+        border-radius: 16px;
+    }
+
+    .code-window-header {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .code-tabs {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+
+    .code-tab {
+        white-space: nowrap;
+    }
+
+    .code-window-body {
+        padding: 1rem;
+        max-height: 280px;
+    }
+
+    .code-window-body code {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .cmd-palette-modal {
+        width: 95%;
+        border-radius: 16px;
+    }
+
+    .cmd-palette-header {
+        padding: 1rem;
+    }
+
+    .cmd-palette-header input {
+        font-size: 0.95rem;
+    }
+
+    .glass-modal {
+        padding: 1.5rem !important;
+        border-radius: 20px !important;
+    }
 }
