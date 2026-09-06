@@ -327,12 +327,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Services Offered', category: 'Services', icon: 'fa-cogs', action: () => scrollToSection('services') },
         { title: 'Contact Mohd Shami', category: 'Navigation', icon: 'fa-envelope', action: () => scrollToSection('contact') },
         { title: 'Revive - ML Disease Prediction', category: 'Project', icon: 'fa-heartbeat', action: () => openProjectModal('revive') },
-        { title: 'HamOrSpam - Email Classifier', category: 'Project', icon: 'fa-shield-alt', action: () => openProjectModal('hamspam') },
-        { title: 'FarmAIQ - Smart Agriculture', category: 'Project', icon: 'fa-seedling', action: () => openProjectModal('farmaiq') },
-        { title: 'Book 1-on-1 Consultation', category: 'Action', icon: 'fa-calendar-alt', action: () => openModal('scheduleModal') },
         { title: 'Download Resume (PDF)', category: 'Document', icon: 'fa-file-pdf', action: () => window.open('files/Mohd_Shami_Resume.pdf', '_blank') },
-        { title: 'GitHub Profile', category: 'External Link', icon: 'fa-github', action: () => window.open('https://github.com/codexshami', '_blank') },
-        { title: 'LinkedIn Profile', category: 'External Link', icon: 'fa-linkedin', action: () => window.open('https://linkedin.com/in/codexshami', '_blank') }
+        { title: 'GitHub Profile', category: 'External Link', icon: 'fa-github', action: () => window.open('https://github.com/mohdshamii', '_blank') },
+        { title: 'LinkedIn Profile', category: 'External Link', icon: 'fa-linkedin', action: () => window.open('https://linkedin.com/in/mohdshamii', '_blank') },
+        { title: 'Kaggle Profile', category: 'External Link', icon: 'fa-kaggle', action: () => window.open('https://kaggle.com/mohdshami', '_blank') },
+        { title: 'HuggingFace Profile', category: 'External Link', icon: 'fa-face-smile', action: () => window.open('https://huggingface.co/mohdshami', '_blank') },
+        { title: 'LeetCode Profile', category: 'External Link', icon: 'fa-code', action: () => window.open('https://leetcode.com/mohdshamii', '_blank') }
     ];
 
     function openCmdPalette() {
@@ -881,7 +881,7 @@ function openProjectModal(projectId) {
             accuracy: '85.4% Accuracy (XGBoost)',
             description: 'Revive is a machine learning web platform designed to analyze high-dimensional clinical health parameters (age, BMI, blood pressure, glucose) and predict potential disease risks. Optimized feature engineering improved baseline classification accuracy from 72% to 85.4%.',
             tags: ['Python', 'Flask', 'XGBoost', 'Scikit-learn', 'EDA', 'Pandas'],
-            github: 'https://github.com/codexshami/Revive',
+            github: 'https://github.com/mohdshamii/Revive',
             demoLink: '#playground'
         },
         'hamspam': {
@@ -890,7 +890,7 @@ function openProjectModal(projectId) {
             accuracy: '98.8% Accuracy (SMOTE + Logistic Regression)',
             description: 'An intelligent email spam filtering engine leveraging TF-IDF n-gram tokenization and Logistic Regression. Applied Synthetic Minority Over-sampling Technique (SMOTE) to overcome text class imbalance, achieving >98% accuracy with minimal false positive spam classifications.',
             tags: ['Python', 'NLP', 'TF-IDF', 'SMOTE', 'Scikit-learn'],
-            github: 'https://github.com/codexshami/HamOrSpam-Classifier',
+            github: 'https://github.com/mohdshamii/HamOrSpam-Classifier',
             demoLink: '#playground'
         },
         'farmaiq': {
@@ -899,7 +899,7 @@ function openProjectModal(projectId) {
             accuracy: '96% Crop Suitability Match',
             description: 'Smart agriculture decision system empowering farmers with soil N-P-K recommendation models and Convolutional Neural Network (CNN) leaf disease detection pipelines built with TensorFlow.',
             tags: ['Python', 'Random Forest', 'CNN', 'TensorFlow', 'OpenCV'],
-            github: 'https://github.com/codexshami/FarmAIQ',
+            github: 'https://github.com/mohdshamii/FarmAIQ',
             demoLink: '#playground'
         }
     };
