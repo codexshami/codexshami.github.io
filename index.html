@@ -132,7 +132,7 @@
                     <a href="https://github.com/mohdshamii" target="_blank" class="social-icon" data-tooltip="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://x.com/mohdshamii" target="_blank" class="social-icon" data-tooltip="X (Twitter)">
+                    <a href="https://x.com/mohdshamiii" target="_blank" class="social-icon" data-tooltip="X (Twitter)">
                         <i class="fab fa-x-twitter"></i>
                     </a>
                     <a href="https://huggingface.co/mohdshami" target="_blank" class="social-icon" data-tooltip="HuggingFace">
@@ -160,7 +160,7 @@
             </div>
             <div class="hero-image" data-aos="fade-left">
                 <div class="image-wrapper">
-                    <img src="img/profile.png" alt="Mohd Shami" class="profile-img">
+                    <img src="img/profile1.png" alt="Mohd Shami" class="profile-img">
                 </div>
             </div>
         </div>
@@ -649,6 +649,15 @@
                 <button class="pg-tab-btn" data-tab="crop-tab">
                     <i class="fas fa-seedling"></i> FarmAIQ (Crop Advisor)
                 </button>
+                <button class="pg-tab-btn" data-tab="neural-tab">
+                    <i class="fas fa-network-wired"></i> Neural Lab (Boundary & Weights)
+                </button>
+                <button class="pg-tab-btn" data-tab="sentiment-tab">
+                    <i class="fas fa-smile-beam"></i> Emotion NLP (Multi-Class Sentiment)
+                </button>
+                <button class="pg-tab-btn" data-tab="vector-tab">
+                    <i class="fas fa-project-diagram"></i> Vector RAG (Semantic Similarity)
+                </button>
             </div>
 
             <!-- Tab Contents -->
@@ -679,11 +688,29 @@
                             </button>
                         </div>
                         <div class="pg-card results-card">
-                            <h3><i class="fas fa-chart-pie"></i> Diagnostic Risk Output</h3>
+                            <h3><i class="fas fa-chart-pie"></i> Diagnostic Risk & SHAP Impact</h3>
                             <div class="result-gauge-wrapper">
                                 <div class="gauge-circle" id="diseaseGauge">
                                     <span class="gauge-score" id="diseaseScore">18%</span>
                                     <span class="gauge-label" id="diseaseStatus">Low Risk</span>
+                                </div>
+                            </div>
+                            <div class="shap-mini-section">
+                                <div class="shap-title-row">
+                                    <span><i class="fas fa-chart-bar"></i> SHAP Feature Importance Attribution</span>
+                                    <small id="shapLatency">Latency: 2.1ms</small>
+                                </div>
+                                <div class="shap-bar-item">
+                                    <div class="shap-bar-header"><span>Glucose Level</span><strong id="shapGlucoseVal">+0.08</strong></div>
+                                    <div class="shap-bar-track"><div class="shap-bar-fill" id="shapGlucoseBar" style="width: 25%;"></div></div>
+                                </div>
+                                <div class="shap-bar-item">
+                                    <div class="shap-bar-header"><span>Blood Pressure</span><strong id="shapBpVal">+0.06</strong></div>
+                                    <div class="shap-bar-track"><div class="shap-bar-fill" id="shapBpBar" style="width: 20%;"></div></div>
+                                </div>
+                                <div class="shap-bar-item">
+                                    <div class="shap-bar-header"><span>BMI Factor</span><strong id="shapBmiVal">+0.04</strong></div>
+                                    <div class="shap-bar-track"><div class="shap-bar-fill" id="shapBmiBar" style="width: 15%;"></div></div>
                                 </div>
                             </div>
                             <div class="metrics-breakdown">
@@ -713,6 +740,7 @@
                                 <span>Try Presets:</span>
                                 <button class="preset-btn" data-text="CONGRATS! You have won $1,000,000 cash prize! Claim immediately at http://win-free-money.com">Spam Preset</button>
                                 <button class="preset-btn" data-text="Hi Shami, please review the attached Python ETL pipeline script before our morning team meeting. Thanks!">Ham Preset</button>
+                                <button class="preset-btn" data-text="URGENT: Your account security has been compromised. Verify your login password immediately at secure-verify.net">Phishing Preset</button>
                             </div>
                             <textarea id="spamInput" rows="4" placeholder="Type or paste any email message text here to test NLP classification...">Hi Shami, please review the attached Python ETL pipeline script before our morning team meeting. Thanks!</textarea>
                             <button class="btn btn-primary pg-run-btn" id="runSpamModel">
@@ -784,6 +812,180 @@
                                 <div class="stat-pill">
                                     <span>Rainfall Index</span>
                                     <strong id="rainIndex">High</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: Neural Lab (Decision Boundary & Activation Visualizer) -->
+                <div class="pg-tab-content" id="neural-tab">
+                    <div class="pg-grid">
+                        <div class="pg-card inputs-card">
+                            <h3><i class="fas fa-cogs"></i> Neural Network Hyperparameters</h3>
+                            <div class="pg-input-group">
+                                <label>Dataset Topology: <span id="datasetName" class="val-highlight">Moons Non-Linear</span></label>
+                                <div class="preset-pills">
+                                    <button class="preset-btn active dataset-btn" data-dataset="moons">Two Moons</button>
+                                    <button class="preset-btn dataset-btn" data-dataset="circles">Concentric Circles</button>
+                                    <button class="preset-btn dataset-btn" data-dataset="xor">XOR Non-Linear</button>
+                                    <button class="preset-btn dataset-btn" data-dataset="linear">Linearly Separable</button>
+                                </div>
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Activation Function: <span id="actName" class="val-highlight">ReLU</span></label>
+                                <div class="preset-pills">
+                                    <button class="preset-btn active act-btn" data-act="relu">ReLU</button>
+                                    <button class="preset-btn act-btn" data-act="sigmoid">Sigmoid</button>
+                                    <button class="preset-btn act-btn" data-act="tanh">Tanh</button>
+                                    <button class="preset-btn act-btn" data-act="leaky">Leaky ReLU</button>
+                                </div>
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Hidden Layer Neurons: <span id="neuronsVal" class="val-highlight">16</span></label>
+                                <input type="range" id="pgNeurons" min="2" max="32" value="16" step="2">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Learning Rate (\u03b7): <span id="lrVal" class="val-highlight">0.05</span></label>
+                                <input type="range" id="pgLr" min="0.005" max="0.2" value="0.05" step="0.005">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Training Epochs: <span id="epochVal" class="val-highlight">80</span></label>
+                                <input type="range" id="pgEpochs" min="10" max="200" value="80" step="10">
+                            </div>
+                            <button class="btn btn-primary pg-run-btn" id="runNeuralTrain">
+                                <i class="fas fa-play"></i> Train Neural Net & Render Boundary
+                            </button>
+                        </div>
+                        <div class="pg-card results-card">
+                            <h3><i class="fas fa-draw-polygon"></i> Real-Time 2D Decision Boundary</h3>
+                            <div class="canvas-wrapper">
+                                <canvas id="neuralCanvas" width="380" height="260"></canvas>
+                            </div>
+                            <div class="neural-metrics-row">
+                                <div class="neural-metric-item">
+                                    <span>Training Loss:</span>
+                                    <strong id="trainLossVal" class="text-emerald">0.0342</strong>
+                                </div>
+                                <div class="neural-metric-item">
+                                    <span>Validation Acc:</span>
+                                    <strong id="valAccVal" class="text-emerald">97.5%</strong>
+                                </div>
+                                <div class="neural-metric-item">
+                                    <span>Epoch:</span>
+                                    <strong id="currentEpochVal">80 / 80</strong>
+                                </div>
+                            </div>
+                            <div class="metrics-breakdown">
+                                <div class="metric-row">
+                                    <span>Loss Optimization</span>
+                                    <strong>Adam Optimizer (Adaptive Moment)</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>Convergence Status</span>
+                                    <span id="convergenceStatus" class="rec-text text-emerald"><i class="fas fa-check-circle"></i> Optimal Decision Boundary Converged</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 5: Emotion & Sentiment Multi-Class Analyzer -->
+                <div class="pg-tab-content" id="sentiment-tab">
+                    <div class="pg-grid">
+                        <div class="pg-card inputs-card">
+                            <h3><i class="fas fa-comment-alt"></i> Natural Language Text</h3>
+                            <div class="preset-pills">
+                                <span>Presets:</span>
+                                <button class="preset-btn sent-preset" data-text="The new neural network model achieved stunning accuracy and ultra-low latency in production testing! Absolutely thrilled with the results!">Praise / Joy</button>
+                                <button class="preset-btn sent-preset" data-text="I am extremely frustrated with the constant API timeouts and breaking database changes during deployment.">Frustration</button>
+                                <button class="preset-btn sent-preset" data-text="URGENT: Critical production server CPU spike detected at 98%. Immediate failover required!">Urgent Alert</button>
+                                <button class="preset-btn sent-preset" data-text="The scheduled quarterly data ingestion job completed at 03:00 UTC with standard record counts.">Neutral Report</button>
+                            </div>
+                            <textarea id="sentimentInput" rows="4" placeholder="Type or paste any customer review, message, or prompt to analyze fine-grained sentiment & emotion...">The new neural network model achieved stunning accuracy and ultra-low latency in production testing! Absolutely thrilled with the results!</textarea>
+                            <button class="btn btn-primary pg-run-btn" id="runSentimentModel">
+                                <i class="fas fa-brain"></i> Analyze Sentiment & Fine-Grained Emotions
+                            </button>
+                        </div>
+                        <div class="pg-card results-card">
+                            <h3><i class="fas fa-heart"></i> Multi-Class Emotion & Sentiment Matrix</h3>
+                            <div class="sentiment-summary-box">
+                                <div class="sentiment-badge-wrapper">
+                                    <span class="sent-main-badge" id="sentMainBadge"><i class="fas fa-smile"></i> Positive (94%)</span>
+                                </div>
+                                <div class="emotion-breakdown-list">
+                                    <div class="emotion-item">
+                                        <div class="emotion-label-row"><span><i class="fas fa-star text-gold"></i> Joy / Enthusiasm</span><strong id="emoJoyVal">88%</strong></div>
+                                        <div class="emotion-bar"><div class="emo-fill joy" id="emoJoyBar" style="width: 88%;"></div></div>
+                                    </div>
+                                    <div class="emotion-item">
+                                        <div class="emotion-label-row"><span><i class="fas fa-thumbs-up text-emerald"></i> Optimism / Confidence</span><strong id="emoOptVal">75%</strong></div>
+                                        <div class="emotion-bar"><div class="emo-fill opt" id="emoOptBar" style="width: 75%;"></div></div>
+                                    </div>
+                                    <div class="emotion-item">
+                                        <div class="emotion-label-row"><span><i class="fas fa-exclamation-triangle text-amber"></i> Urgency / Alert</span><strong id="emoUrgVal">12%</strong></div>
+                                        <div class="emotion-bar"><div class="emo-fill urg" id="emoUrgBar" style="width: 12%;"></div></div>
+                                    </div>
+                                    <div class="emotion-item">
+                                        <div class="emotion-label-row"><span><i class="fas fa-frown text-red"></i> Frustration / Negative</span><strong id="emoFrustVal">4%</strong></div>
+                                        <div class="emotion-bar"><div class="emo-fill frust" id="emoFrustBar" style="width: 4%;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="keywords-extracted">
+                                <h4>Attention Weights / Significant Keyword Tokens</h4>
+                                <div class="tag-cloud" id="sentimentTags">
+                                    <span class="tag sent-pos">stunning (+0.92)</span>
+                                    <span class="tag sent-pos">thrilled (+0.89)</span>
+                                    <span class="tag sent-pos">accuracy (+0.65)</span>
+                                    <span class="tag sent-pos">ultra-low latency (+0.70)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 6: Vector RAG & Semantic Similarity Explorer -->
+                <div class="pg-tab-content" id="vector-tab">
+                    <div class="pg-grid">
+                        <div class="pg-card inputs-card">
+                            <h3><i class="fas fa-search-dollar"></i> Semantic Query Vector</h3>
+                            <div class="preset-pills">
+                                <span>Try Search Queries:</span>
+                                <button class="preset-btn vector-preset" data-query="deep neural networks for computer vision and object detection">Computer Vision</button>
+                                <button class="preset-btn vector-preset" data-query="transformer attention mechanisms for natural language generation">Transformer & NLP</button>
+                                <button class="preset-btn vector-preset" data-query="automated CI/CD pipelines, model monitoring and MLOps deployment">MLOps & DevOps</button>
+                                <button class="preset-btn vector-preset" data-query="reinforcement learning reward policy optimization for robotics">Reinforcement Learning</button>
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Query Text (Vector Embedding Source):</label>
+                                <input type="text" id="vectorQueryInput" class="pg-text-input" value="deep neural networks for computer vision and object detection" placeholder="Enter query phrase to compute embedding similarity...">
+                            </div>
+                            <div class="pg-input-group">
+                                <label>Similarity Metric:</label>
+                                <div class="preset-pills">
+                                    <button class="preset-btn active metric-btn" data-metric="cosine">Cosine Similarity</button>
+                                    <button class="preset-btn metric-btn" data-metric="euclidean">Normalized Euclidean</button>
+                                    <button class="preset-btn metric-btn" data-metric="dot">Dot Product Score</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary pg-run-btn" id="runVectorSearch">
+                                <i class="fas fa-project-diagram"></i> Compute Vector Similarity & Rank Top-K
+                            </button>
+                        </div>
+                        <div class="pg-card results-card">
+                            <h3><i class="fas fa-list-ol"></i> Top Semantic Search Matches (RAG Corpus)</h3>
+                            <div class="vector-results-list" id="vectorResultsList">
+                                <!-- Dynamic ranked cards injected by JS -->
+                            </div>
+                            <div class="metrics-breakdown" style="margin-top: 1rem;">
+                                <div class="metric-row">
+                                    <span>Embedding Vector Dim</span>
+                                    <strong class="text-emerald">384 Dimensions (All-MiniLM-L6-v2)</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>Vector Search Index</span>
+                                    <strong>FAISS / HNSW (Hierarchical Navigable Small World)</strong>
                                 </div>
                             </div>
                         </div>
@@ -1091,6 +1293,7 @@
                     <div class="service-hover-bg"></div>
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- Testimonials Section -->
@@ -1217,7 +1420,7 @@
                 </article>
                 <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="blog-image">
-                        <img src="https://images.unsplash.com/photo-1504868584819-f8e90526354c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="NumPy Matrix Operations">
+                        <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1506&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="NumPy Matrix Operations">
                         <span class="blog-category">NumPy</span>
                     </div>
                     <div class="blog-content">
@@ -1284,7 +1487,7 @@
                             </div>
                             <div>
                                 <h4>Phone</h4>
-                                <a href="tel:+918923591576">+91 89235 91576</a>
+                                <a href="tel:+918923XXXX">+91 8923XXXXX</a>
                             </div>
                         </div>
                         <div class="contact-item">
