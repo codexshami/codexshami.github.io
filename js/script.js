@@ -459,6 +459,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (scoreEl) scoreEl.textContent = `${score}%`;
 
+        // SHAP attribution calculations
+        const shapG = ((glucose - 95) / 155 * 0.35).toFixed(2);
+        const shapB = ((bp - 120) / 60 * 0.28).toFixed(2);
+        const shapBm = ((bmi - 22) / 23 * 0.22).toFixed(2);
+
+        const shapGVal = document.getElementById('shapGlucoseVal');
+        const shapBpVal = document.getElementById('shapBpVal');
+        const shapBmiVal = document.getElementById('shapBmiVal');
+        const shapGBar = document.getElementById('shapGlucoseBar');
+        const shapBpBar = document.getElementById('shapBpBar');
+        const shapBmiBar = document.getElementById('shapBmiBar');
+
+        if (shapGVal) shapGVal.textContent = (shapG >= 0 ? '+' : '') + shapG;
+        if (shapBpVal) shapBpVal.textContent = (shapB >= 0 ? '+' : '') + shapB;
+        if (shapBmiVal) shapBmiVal.textContent = (shapBm >= 0 ? '+' : '') + shapBm;
+
+        if (shapGBar) shapGBar.style.width = `${Math.min(100, Math.max(10, Math.abs(shapG) * 200))}%`;
+        if (shapBpBar) shapBpBar.style.width = `${Math.min(100, Math.max(10, Math.abs(shapB) * 200))}%`;
+        if (shapBmiBar) shapBmiBar.style.width = `${Math.min(100, Math.max(10, Math.abs(shapBm) * 200))}%`;
+
         if (score < 30) {
             if (statusEl) { statusEl.textContent = 'Low Risk'; statusEl.style.color = '#08BF7C'; }
             if (factorEl) factorEl.textContent = 'Optimal Biomarkers';
@@ -492,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Spam Classifier Simulator
     const spamInput = document.getElementById('spamInput');
     const runSpamBtn = document.getElementById('runSpamModel');
-    const presetBtns = document.querySelectorAll('.preset-btn');
+    const presetBtns = document.querySelectorAll('.preset-btn:not(.dataset-btn):not(.act-btn):not(.sent-preset):not(.vector-preset):not(.metric-btn)');
 
     presetBtns.forEach(pBtn => {
         pBtn.addEventListener('click', () => {
@@ -506,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function runSpamClassification() {
         if (!spamInput) return;
         const text = spamInput.value.toLowerCase();
-        const spamKeywords = ['won', 'lottery', 'cash', 'claim', 'prize', 'free', 'http', 'click', 'money', 'urgent', '1,000,000', 'dollar', 'credit'];
+        const spamKeywords = ['won', 'lottery', 'cash', 'claim', 'prize', 'free', 'http', 'click', 'money', 'urgent', '1,000,000', 'dollar', 'credit', 'compromised', 'verify', 'password'];
         
         let matches = 0;
         const matchedWords = [];
@@ -518,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let prob = Math.round((matches / 4) * 100);
-        if (text.includes('http') || text.includes('win')) prob += 30;
+        if (text.includes('http') || text.includes('win') || text.includes('verify')) prob += 30;
         prob = Math.min(99, Math.max(3, prob));
 
         const badgeEl = document.getElementById('spamBadge');
@@ -623,6 +643,397 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('FarmAIQ Crop Suitability Model Updated!');
         });
     }
+
+    // 4. Neural Lab Decision Boundary Canvas Engine
+    const neuralCanvas = document.getElementById('neuralCanvas');
+    const datasetBtns = document.querySelectorAll('.dataset-btn');
+    const actBtns = document.querySelectorAll('.act-btn');
+    const neuronsSlider = document.getElementById('pgNeurons');
+    const lrSlider = document.getElementById('pgLr');
+    const epochsSlider = document.getElementById('pgEpochs');
+    const runNeuralBtn = document.getElementById('runNeuralTrain');
+
+    let currentDataset = 'moons';
+    let currentActivation = 'relu';
+
+    datasetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            datasetBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentDataset = btn.getAttribute('data-dataset');
+            const dName = document.getElementById('datasetName');
+            if (dName) dName.textContent = btn.textContent;
+            renderDecisionBoundary();
+        });
+    });
+
+    actBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            actBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentActivation = btn.getAttribute('data-act');
+            const aName = document.getElementById('actName');
+            if (aName) aName.textContent = btn.textContent;
+            renderDecisionBoundary();
+        });
+    });
+
+    [neuronsSlider, lrSlider, epochsSlider].forEach(s => {
+        if (s) s.addEventListener('input', () => {
+            if (neuronsSlider) document.getElementById('neuronsVal').textContent = neuronsSlider.value;
+            if (lrSlider) document.getElementById('lrVal').textContent = lrSlider.value;
+            if (epochsSlider) document.getElementById('epochVal').textContent = epochsSlider.value;
+            renderDecisionBoundary();
+        });
+    });
+
+    function generatePoints(type) {
+        const points = [];
+        const n = 60;
+        if (type === 'moons') {
+            for (let i = 0; i < n; i++) {
+                const angle = (i / n) * Math.PI;
+                points.push({ x: Math.cos(angle) + (Math.random() - 0.5) * 0.15, y: Math.sin(angle) + (Math.random() - 0.5) * 0.15, label: 0 });
+                points.push({ x: 1 - Math.cos(angle) + (Math.random() - 0.5) * 0.15, y: 0.5 - Math.sin(angle) + (Math.random() - 0.5) * 0.15, label: 1 });
+            }
+        } else if (type === 'circles') {
+            for (let i = 0; i < n; i++) {
+                const angle = (i / n) * 2 * Math.PI;
+                const r1 = 0.4 + (Math.random() - 0.5) * 0.1;
+                const r2 = 0.85 + (Math.random() - 0.5) * 0.1;
+                points.push({ x: r1 * Math.cos(angle), y: r1 * Math.sin(angle), label: 0 });
+                points.push({ x: r2 * Math.cos(angle), y: r2 * Math.sin(angle), label: 1 });
+            }
+        } else if (type === 'xor') {
+            for (let i = 0; i < n * 2; i++) {
+                const x = (Math.random() - 0.5) * 2;
+                const y = (Math.random() - 0.5) * 2;
+                const label = (x * y > 0) ? 1 : 0;
+                points.push({ x, y, label });
+            }
+        } else {
+            // linear
+            for (let i = 0; i < n * 2; i++) {
+                const x = (Math.random() - 0.5) * 2;
+                const y = (Math.random() - 0.5) * 2;
+                const label = (y > 0.5 * x + 0.1) ? 1 : 0;
+                points.push({ x, y, label });
+            }
+        }
+        return points;
+    }
+
+    function renderDecisionBoundary() {
+        if (!neuralCanvas) return;
+        const ctx = neuralCanvas.getContext('2d');
+        const w = neuralCanvas.width;
+        const h = neuralCanvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const neurons = neuronsSlider ? parseInt(neuronsSlider.value) : 16;
+        const epochs = epochsSlider ? parseInt(epochsSlider.value) : 80;
+
+        // Render Background Decision Surface
+        const gridSize = 12;
+        for (let px = 0; px < w; px += gridSize) {
+            for (let py = 0; py < h; py += gridSize) {
+                const nx = (px / w) * 2.8 - 1.4;
+                const ny = (py / h) * 2.8 - 1.4;
+                
+                let val = 0;
+                if (currentDataset === 'moons') {
+                    val = Math.sin(nx * 2.2) - ny * 1.5;
+                } else if (currentDataset === 'circles') {
+                    val = Math.sqrt(nx * nx + ny * ny) - 0.65;
+                } else if (currentDataset === 'xor') {
+                    val = (nx * ny) * 3;
+                } else {
+                    val = ny - 0.5 * nx;
+                }
+
+                // Warp with activation & neuron density
+                const complexity = (neurons / 16);
+                const prob = 1 / (1 + Math.exp(-val * complexity * 2.5));
+
+                ctx.fillStyle = prob > 0.5 
+                    ? `rgba(8, 191, 124, ${Math.min(0.35, (prob - 0.5) * 0.6)})` 
+                    : `rgba(255, 75, 75, ${Math.min(0.35, (0.5 - prob) * 0.6)})`;
+                ctx.fillRect(px, py, gridSize, gridSize);
+            }
+        }
+
+        // Render Decision Contour Line
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let x = 0; x < w; x += 6) {
+            const nx = (x / w) * 2.8 - 1.4;
+            let targetNy = 0;
+            if (currentDataset === 'moons') targetNy = Math.sin(nx * 2.2) / 1.5;
+            else if (currentDataset === 'circles') targetNy = Math.sqrt(Math.max(0, 0.42 - nx * nx));
+            else if (currentDataset === 'xor') targetNy = 0.05 / (nx + 0.001);
+            else targetNy = 0.5 * nx;
+
+            const y = ((targetNy + 1.4) / 2.8) * h;
+            if (x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Render Points
+        const pts = generatePoints(currentDataset);
+        pts.forEach(p => {
+            const px = ((p.x + 1.4) / 2.8) * w;
+            const py = ((p.y + 1.4) / 2.8) * h;
+            ctx.beginPath();
+            ctx.arc(px, py, 4, 0, 2 * Math.PI);
+            ctx.fillStyle = p.label === 1 ? '#08BF7C' : '#ff4b4b';
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = p.label === 1 ? '#08BF7C' : '#ff4b4b';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = '#090d12';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        });
+
+        // Update metrics
+        const loss = (0.015 + (1 / epochs) * 0.8 + (1 / neurons) * 0.2).toFixed(4);
+        const acc = Math.min(99.4, (92 + (neurons / 32) * 4 + (epochs / 200) * 3.4)).toFixed(1);
+
+        const lossEl = document.getElementById('trainLossVal');
+        const accEl = document.getElementById('valAccVal');
+        const epochEl = document.getElementById('currentEpochVal');
+        if (lossEl) lossEl.textContent = loss;
+        if (accEl) accEl.textContent = `${acc}%`;
+        if (epochEl) epochEl.textContent = `${epochs} / ${epochs}`;
+    }
+
+    if (runNeuralBtn) {
+        runNeuralBtn.addEventListener('click', () => {
+            sound.playSuccess();
+            renderDecisionBoundary();
+            showToast('Neural Network Weights Trained & Boundary Re-rendered!');
+        });
+    }
+
+    // Initial render
+    setTimeout(renderDecisionBoundary, 500);
+
+    // 5. Emotion & Sentiment Multi-Class Analyzer
+    const sentimentInput = document.getElementById('sentimentInput');
+    const runSentimentBtn = document.getElementById('runSentimentModel');
+    const sentPresets = document.querySelectorAll('.sent-preset');
+
+    sentPresets.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (sentimentInput) {
+                sentimentInput.value = btn.getAttribute('data-text');
+                analyzeSentimentNLP();
+            }
+        });
+    });
+
+    function analyzeSentimentNLP() {
+        if (!sentimentInput) return;
+        const text = sentimentInput.value.toLowerCase();
+
+        const joyWords = ['stunning', 'thrilled', 'love', 'great', 'awesome', 'excellent', 'amazing', 'happy', 'superb', 'best', 'flawless'];
+        const optWords = ['accuracy', 'latency', 'optimize', 'clean', 'improved', 'scale', 'reliable', 'effective', 'achieved', 'production'];
+        const urgWords = ['urgent', 'alert', 'spike', 'failover', 'critical', 'immediate', 'emergency', 'security', 'compromised'];
+        const frustWords = ['frustrated', 'timeout', 'breaking', 'error', 'bug', 'terrible', 'worst', 'failed', 'slow', 'crash', 'bad'];
+
+        let joyScore = 0, optScore = 0, urgScore = 0, frustScore = 0;
+        const extractedTags = [];
+
+        joyWords.forEach(w => { if (text.includes(w)) { joyScore += 30; extractedTags.push({ word: w, impact: '+0.88 (Joy)' }); } });
+        optWords.forEach(w => { if (text.includes(w)) { optScore += 25; extractedTags.push({ word: w, impact: '+0.75 (Optimism)' }); } });
+        urgWords.forEach(w => { if (text.includes(w)) { urgScore += 35; extractedTags.push({ word: w, impact: '+0.90 (Urgent)' }); } });
+        frustWords.forEach(w => { if (text.includes(w)) { frustScore += 35; extractedTags.push({ word: w, impact: '-0.85 (Frustration)' }); } });
+
+        joyScore = Math.min(96, Math.max(5, joyScore || 10));
+        optScore = Math.min(94, Math.max(8, optScore || 15));
+        urgScore = Math.min(98, Math.max(3, urgScore || 4));
+        frustScore = Math.min(96, Math.max(2, frustScore || 3));
+
+        // Update bars
+        const joyVal = document.getElementById('emoJoyVal');
+        const optVal = document.getElementById('emoOptVal');
+        const urgVal = document.getElementById('emoUrgVal');
+        const frustVal = document.getElementById('emoFrustVal');
+
+        const joyBar = document.getElementById('emoJoyBar');
+        const optBar = document.getElementById('emoOptBar');
+        const urgBar = document.getElementById('emoUrgBar');
+        const frustBar = document.getElementById('emoFrustBar');
+
+        if (joyVal) joyVal.textContent = `${joyScore}%`;
+        if (optVal) optVal.textContent = `${optScore}%`;
+        if (urgVal) urgVal.textContent = `${urgScore}%`;
+        if (frustVal) frustVal.textContent = `${frustScore}%`;
+
+        if (joyBar) joyBar.style.width = `${joyScore}%`;
+        if (optBar) optBar.style.width = `${optScore}%`;
+        if (urgBar) urgBar.style.width = `${urgScore}%`;
+        if (frustBar) frustBar.style.width = `${frustScore}%`;
+
+        const badge = document.getElementById('sentMainBadge');
+        if (badge) {
+            if (frustScore > 40) {
+                badge.innerHTML = `<i class="fas fa-frown"></i> Negative Sentiment (${frustScore}%)`;
+                badge.className = 'sent-main-badge sent-negative';
+            } else if (urgScore > 50) {
+                badge.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Urgent Action Required (${urgScore}%)`;
+                badge.className = 'sent-main-badge sent-urgent';
+            } else if (joyScore > 35 || optScore > 35) {
+                badge.innerHTML = `<i class="fas fa-smile-beam"></i> Positive Sentiment (${Math.max(joyScore, optScore)}%)`;
+                badge.className = 'sent-main-badge sent-positive';
+            } else {
+                badge.innerHTML = `<i class="fas fa-meh"></i> Neutral Sentiment (92%)`;
+                badge.className = 'sent-main-badge sent-neutral';
+            }
+        }
+
+        const tagsEl = document.getElementById('sentimentTags');
+        if (tagsEl) {
+            if (extractedTags.length > 0) {
+                tagsEl.innerHTML = extractedTags.map(t => `<span class="tag sent-pos">${t.word} (${t.impact})</span>`).join('');
+            } else {
+                tagsEl.innerHTML = `<span class="tag sent-pos">informative (+0.50)</span><span class="tag sent-pos">standard record (+0.42)</span>`;
+            }
+        }
+    }
+
+    if (runSentimentBtn) {
+        runSentimentBtn.addEventListener('click', () => {
+            sound.playSuccess();
+            analyzeSentimentNLP();
+            showToast('Transformer Sentiment & Emotion Pipeline Complete!');
+        });
+    }
+
+    // 6. Vector RAG & Semantic Search Similarity Engine
+    const vectorInput = document.getElementById('vectorQueryInput');
+    const runVectorBtn = document.getElementById('runVectorSearch');
+    const vectorPresets = document.querySelectorAll('.vector-preset');
+    const metricBtns = document.querySelectorAll('.metric-btn');
+    const vectorResultsList = document.getElementById('vectorResultsList');
+
+    let currentMetric = 'cosine';
+
+    const ragCorpus = [
+        {
+            title: 'Deep Neural Architectures for Real-Time Computer Vision',
+            category: 'Computer Vision & YOLO',
+            keywords: ['computer', 'vision', 'object', 'detection', 'cnn', 'yolo', 'neural', 'image', 'opencv', 'segmentation'],
+            summary: 'State-of-the-art visual feature extractors and real-time bounding box regression pipelines for autonomous edge perception.'
+        },
+        {
+            title: 'Transformer Attention Mechanisms for Generative NLP & LLMs',
+            category: 'NLP & Transformers',
+            keywords: ['transformer', 'attention', 'nlp', 'language', 'generation', 'llm', 'bert', 'gpt', 'token', 'embeddings'],
+            summary: 'Multi-head self-attention models powering semantic comprehension, retrieval-augmented generation (RAG), and zero-shot reasoning.'
+        },
+        {
+            title: 'End-to-End MLOps Pipeline Automation, Monitoring & CI/CD',
+            category: 'MLOps & Infrastructure',
+            keywords: ['mlops', 'pipeline', 'cicd', 'monitoring', 'deployment', 'automated', 'docker', 'inference', 'drift', 'kubernetes'],
+            summary: 'Containerized model lifecycle management featuring automated drift detection, low-latency microservices, and continuous deployment.'
+        },
+        {
+            title: 'Deep Reinforcement Learning & Proximal Policy Optimization',
+            category: 'Reinforcement Learning',
+            keywords: ['reinforcement', 'learning', 'reward', 'policy', 'optimization', 'robotics', 'q-learning', 'agent', 'environment', 'markov'],
+            summary: 'Actor-critic architectures designed for continuous action-space control, algorithmic trading, and autonomous robotic navigation.'
+        },
+        {
+            title: 'Clinical Diagnostic Prediction & Biomarker Risk Classification',
+            category: 'Healthcare AI',
+            keywords: ['clinical', 'disease', 'patient', 'health', 'biomarker', 'risk', 'xgboost', 'medical', 'glucose', 'blood'],
+            summary: 'Gradient boosted decision trees and interpretability frameworks (SHAP) for preventative patient health diagnostics.'
+        }
+    ];
+
+    metricBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            metricBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentMetric = btn.getAttribute('data-metric');
+            computeVectorSimilarities();
+        });
+    });
+
+    vectorPresets.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (vectorInput) {
+                vectorInput.value = btn.getAttribute('data-query');
+                computeVectorSimilarities();
+            }
+        });
+    });
+
+    function computeVectorSimilarities() {
+        if (!vectorInput || !vectorResultsList) return;
+        const queryTokens = vectorInput.value.toLowerCase().split(/[\s,]+/);
+
+        const scored = ragCorpus.map(doc => {
+            let matches = 0;
+            queryTokens.forEach(t => {
+                if (t.length > 2 && doc.keywords.some(k => k.includes(t) || t.includes(k))) {
+                    matches++;
+                }
+            });
+
+            let score = 0;
+            if (matches > 0) {
+                score = Math.min(99.2, 70 + (matches * 7.5));
+            } else {
+                score = Math.floor(Math.random() * 25) + 15;
+            }
+
+            if (currentMetric === 'euclidean') {
+                score = (score * 0.94).toFixed(1);
+            } else if (currentMetric === 'dot') {
+                score = (score * 1.02).toFixed(1);
+                score = Math.min(99.9, score);
+            } else {
+                score = score.toFixed(1);
+            }
+
+            return { ...doc, score: parseFloat(score) };
+        });
+
+        scored.sort((a, b) => b.score - a.score);
+
+        vectorResultsList.innerHTML = scored.slice(0, 3).map((item, idx) => `
+            <div class="vector-result-item ${idx === 0 ? 'top-match' : ''}">
+                <div class="vector-score-badge">
+                    <span class="rank-num">#${idx + 1}</span>
+                    <strong class="score-pct">${item.score}%</strong>
+                    <small>Similarity</small>
+                </div>
+                <div class="vector-info">
+                    <div class="vector-cat-tag">${item.category}</div>
+                    <h4 class="vector-title">${item.title}</h4>
+                    <p class="vector-summary">${item.summary}</p>
+                    <div class="vector-bar-wrap">
+                        <div class="vector-bar-fill" style="width: ${item.score}%;"></div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    if (runVectorBtn) {
+        runVectorBtn.addEventListener('click', () => {
+            sound.playSuccess();
+            computeVectorSimilarities();
+            showToast('Top-K Semantic Vector Search Computed!');
+        });
+    }
+
+    // Initial Vector Run
+    setTimeout(computeVectorSimilarities, 600);
 
     // 12. Code Explorer Engine
     const codeViewer = document.getElementById('codeViewer');
